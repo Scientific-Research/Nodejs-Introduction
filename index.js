@@ -8,9 +8,15 @@ const fs = require("fs");
 // console.log("File was written!");
 
 /* Non-blocking, asynchronous way */
-fs.readFile("./txt/start.txt", "utf-8", (err, data) => {
-  // we use callback here => err and data
-  console.log(data);
+fs.readFile("./txt/start.txt", "utf-8", (err, data1) => {
+  fs.readFile(`./txt/${data1}.txt`, "utf-8", (err, data2) => {
+    // we use callback here => err and data
+    console.log(data2);
+    fs.readFile(`./txt/append.txt`, "utf-8", (err, data3) => {
+      // we use callback here => err and data
+      console.log(data3);
+    });
+  });
 });
 
 console.log("Will read file");
