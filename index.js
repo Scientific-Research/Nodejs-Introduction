@@ -9,6 +9,8 @@ const fs = require("fs");
 
 /* Non-blocking, asynchronous way */
 fs.readFile("./txt/start.txt", "utf-8", (err, data1) => {
+  if (err) return console.log("ERROR! :(");
+
   fs.readFile(`./txt/${data1}.txt`, "utf-8", (err, data2) => {
     // we use callback here => err and data
     console.log(data2);
