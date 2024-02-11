@@ -56,7 +56,13 @@ const server = http.createServer((req, res) => {
     // });
     // OR
     fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
-      res.end(`This is the content of an API: ${data}`);
+      // we use JSON.parse() to convert the JSON string to a Javascript Object!
+      // it will remove the quotation from Key in JS object=>
+      // JSON:'productName': 'Baby Carrots' --> JS object: productName: 'Baby Carrots'
+      const productData = JSON.parse(data);
+      console.log(productData);
+
+      // res.end(`This is the content of an API: ${productData}`);
     });
   } else {
     res.writeHead(404, {
