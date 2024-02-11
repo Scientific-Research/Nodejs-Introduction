@@ -37,6 +37,12 @@ const url = require("url");
 //////////////////////////////////
 //////SERVER
 
+// this is the top level code and is started once when we ever start the program:
+// and it doesn't matter if it blocks the execution, because it is the Synchronous
+// and not Asynchronous. It just starts one time at the beginning of the program.
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObj = JSON.parse(data);
+
 const server = http.createServer((req, res) => {
   console.log(req.url);
   const pathName = req.url;
@@ -55,27 +61,28 @@ const server = http.createServer((req, res) => {
     //   res.end(`This is the content of an API: ${data}`);
     // });
     // OR
-    fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
-      // we use JSON.parse() to convert the JSON string to a Javascript Object!
-      // it will remove the quotation from Key in JS object=>
-      // JSON:'productName': 'Baby Carrots' --> JS object: productName: 'Baby Carrots'
-      const productData = JSON.parse(data);
-      console.log(productData); // console.log() can display JSON string data
-      console.log(data); // console.log() can display the Javascript object too!
-      // but we don't need to convert the data to JS Object to show the content in Browser
-      // we can directly display the data as it is because data is JSON string and when we
-      // convert it to the JS Object, Browser can not display it.
+    // fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
+    //   // we use JSON.parse() to convert the JSON string to a Javascript Object!
+    //   // it will remove the quotation from Key in JS object=>
+    //   // JSON:'productName': 'Baby Carrots' --> JS object: productName: 'Baby Carrots'
+    //   const productData = JSON.parse(data);
+    //   console.log(productData); // console.log() can display JSON string data
+    //   console.log(data); // console.log() can display the Javascript object too!
+    // but we don't need to convert the data to JS Object to show the content in Browser
+    // we can directly display the data as it is because data is JSON string and when we
+    // convert it to the JS Object, Browser can not display it.
 
-      // we can also adding the header and status before we send the data:
-      // but we will have the application/json as header for Content-type instead of text/html
-      // because we send here actually the json file to the browser and not text/html.
-      res.writeHead(200, {
-        "Content-type": "application/json",
-      });
-      // res.end(`This is the content of an API: ${data}`);
-      // res.end(`${data}`);
-      res.end(data);
+    // we can also adding the header and status before we send the data:
+    // but we will have the application/json as header for Content-type instead of text/html
+    // because we send here actually the json file to the browser and not text/html.
+    res.writeHead(200, {
+      "Content-type": "application/json",
     });
+    // res.end(`This is the content of an API: ${data}`);
+    // res.end(`${data}`);
+    res.end(data);
+    // console.log(data);
+    // console.log(dataObj);
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
