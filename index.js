@@ -60,9 +60,12 @@ const server = http.createServer((req, res) => {
       // it will remove the quotation from Key in JS object=>
       // JSON:'productName': 'Baby Carrots' --> JS object: productName: 'Baby Carrots'
       const productData = JSON.parse(data);
-      console.log(productData);
-
-      // res.end(`This is the content of an API: ${productData}`);
+      console.log(productData); // console.log() can display JSON string data
+      console.log(data); // console.log() can display the Javascript object too!
+      // but we don't need to convert the data to JS Object to show the content in Browser
+      // we can directly display the data as it is because data is JSON string and when we
+      // convert it to the JS Object, Browser can not display it.
+      res.end(`This is the content of an API: ${data}`);
     });
   } else {
     res.writeHead(404, {
