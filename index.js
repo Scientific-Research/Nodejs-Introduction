@@ -65,7 +65,16 @@ const server = http.createServer((req, res) => {
       // but we don't need to convert the data to JS Object to show the content in Browser
       // we can directly display the data as it is because data is JSON string and when we
       // convert it to the JS Object, Browser can not display it.
-      res.end(`This is the content of an API: ${data}`);
+
+      // we can also adding the header and status before we send the data:
+      // but we will have the application/json as header for Content-type instead of text/html
+      // because we send here actually the json file to the browser and not text/html.
+      res.writeHead(200, {
+        "Content-type": "application/json",
+      });
+      // res.end(`This is the content of an API: ${data}`);
+      // res.end(`${data}`);
+      res.end(data);
     });
   } else {
     res.writeHead(404, {
