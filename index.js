@@ -39,8 +39,13 @@ const url = require("url");
 
 const server = http.createServer((req, res) => {
   console.log(req.url);
+  const pathName = req.url;
 
-  res.end("Hello from the server");
+  if (pathName === "/" || pathName === "/overview") {
+    res.end("This is the OVERVIEW page!");
+  } else if (pathName === "/product") {
+    res.end("This is the PRODUCT page!");
+  }
 });
 
 const PORT = 8000;
