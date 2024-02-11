@@ -45,6 +45,19 @@ const server = http.createServer((req, res) => {
     res.end("This is the OVERVIEW page!");
   } else if (pathName === "/product") {
     res.end("This is the PRODUCT page!");
+  } else if (pathName === "/api") {
+    // const api = fs.readFile("./dev-data/data.json");
+    // __dirname means where the current file is located! where the directory dev-data is located!
+    // it is located in the main folder of the program => Nodejs-Introduction
+    // . means where the script is running: this current folder: Nodejs-Introduction
+    // C:\Data\assignement\Jonas-Schmedtmann\NODE\Nodejs-Introduction\dev-data\data.json
+    // const api = fs.readFile(`./dev-data/data.json`, "utf-8", (err, data) => {
+    //   res.end(`This is the content of an API: ${data}`);
+    // });
+    // OR
+    fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
+      res.end(`This is the content of an API: ${data}`);
+    });
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
