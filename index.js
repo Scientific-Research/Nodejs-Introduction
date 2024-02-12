@@ -63,11 +63,17 @@ const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
 
 const server = http.createServer((req, res) => {
-  console.log(req.url);
-  const pathName = req.url;
+  // console.log(req.url);
+  // console.log(url.parse(req.url, true));
+  // const pathname = req.url;
+
+  // using ES6 destructuring:
+  const { query, pathname } = url.parse(req.url, true);
+  console.log(query);
+  console.log(pathname);
 
   // Overview page
-  if (pathName === "/" || pathName === "/overview") {
+  if (pathname === "/" || pathname === "/overview") {
     // res.end("This is the OVERVIEW page!");
     res.writeHead(200, {
       "Content-type": "text/html",
@@ -82,17 +88,18 @@ const server = http.createServer((req, res) => {
     // we have now the cardHtmlString and replace it with {%Product_Cards%} which is in
     // template-overview.html
     const outputOverview = tempOverview.replace("{%Product_Cards%}", cardHtmlString);
-    console.log(cardHtmlString);
+    // console.log(cardHtmlString);
 
     // res.end(tempOverview);
     res.end(outputOverview);
 
     // Product page
-  } else if (pathName === "/product") {
+  } else if (pathname === "/product") {
+    // console.log(query);
     res.end("This is the PRODUCT page!");
 
     // API
-  } else if (pathName === "/api") {
+  } else if (pathname === "/api") {
     // const api = fs.readFile("./dev-data/data.json");
     // __dirname means where the current file is located! where the directory dev-data is located!
     // it is located in the main folder of the program => Nodejs-Introduction
