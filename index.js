@@ -49,6 +49,7 @@ const replaceTemplate = (temp, product) => {
   if (!product.organic) {
     output = output.replace(/{%not-organic%}/g, "not-organic");
   }
+  return output;
 };
 
 // this is the top level code and is started once when we ever start the program:
@@ -72,6 +73,7 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
     });
     const cardsHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
+    console.log(cardsHtml);
 
     res.end(tempOverview);
 
