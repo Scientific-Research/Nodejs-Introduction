@@ -146,6 +146,15 @@ const server = http.createServer((req, res) => {
     // console.log(dataObj);
 
     // Not Found
+  } else if (pathname === "/Shopping-Cart") {
+    res.writeHead(200, {
+      "Content-type": "text/html",
+      "my-own-header": "hello-world",
+    });
+    res.write('<h1 style="color: #ff0000;text-align: center;margin-top:30rem">Shopping Cart page coming soon...</h1>');
+    res.end();
+    // OR
+    // res.end('<h1 style="color: #ff0000;">Shopping Cart page coming soon...</h1>');
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
