@@ -751,7 +751,7 @@ const server = http.createServer((req, res) => {
 `);
     // res.end();
     // OR
-    res.end('<h1 style="color: #ff0000;">Shopping Cart page coming soon...</h1>');
+    res.end('<h1 style="color: #79e17b;">Shopping Cart page coming soon...</h1>');
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
