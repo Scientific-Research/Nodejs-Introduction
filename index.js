@@ -47,7 +47,7 @@ const replaceTemplate = (temp, product) => {
   output = output.replace(/{%id%}/g, product.id);
 
   if (!product.organic) {
-    output = output.replace(/{%not-organic%}/g, "not-organic");
+    output = output.replace(/{%not_organic%}/g, "not-organic");
   }
   return output;
 };
