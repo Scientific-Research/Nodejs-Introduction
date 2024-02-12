@@ -60,14 +60,16 @@ const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, "u
 const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, "utf-8");
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
-const dataObj = JSON.parse(data);
+const dataObj = JSON.parse(data); // dataObj is not in JSON format anymore, it is now in string format!
+// console.log(data);
 
 const server = http.createServer((req, res) => {
   // console.log(req.url);
   // console.log(url.parse(req.url, true));
   // const pathname = req.url;
 
-  // using ES6 destructuring:
+  // using ES6 destructuring gives us the query and pathname that we need them in product section
+  // later!
   const { query, pathname } = url.parse(req.url, true);
   console.log(query);
   console.log(pathname);
@@ -95,7 +97,10 @@ const server = http.createServer((req, res) => {
 
     // Product page
   } else if (pathname === "/product") {
-    // console.log(query);
+    console.log(query.id); // query.id gives us a number that we need for every fruit.
+    const product = dataObj[query.id]; // dataObj[0] or dataObj[1], dataObj[2], dataObj[3], dataObj[4]
+    console.log(product);
+
     res.end("This is the PRODUCT page!");
 
     // API
