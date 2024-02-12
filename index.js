@@ -73,9 +73,19 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
     });
     const cardsHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
-    console.log(cardsHtml);
+    // console.log(cardsHtml);
 
-    res.end(tempOverview);
+    // Convert the JavaScript Objects to string to display it on the Browser!
+    // const cardHtmlString = cardsHtml.toString();
+    // OR => join('') convert the JS Object to String
+    const cardHtmlString = cardsHtml.join("");
+    // we have now the cardHtmlString and replace it with {%Product_Cards%} which is in
+    // template-overview.html
+    const outputOverview = tempOverview.replace("{%Product_Cards%}", cardHtmlString);
+    console.log(cardHtmlString);
+
+    // res.end(tempOverview);
+    res.end(outputOverview);
 
     // Product page
   } else if (pathName === "/product") {
