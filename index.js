@@ -40,6 +40,10 @@ const url = require("url");
 // this is the top level code and is started once when we ever start the program:
 // and it doesn't matter if it blocks the execution, because it is the Synchronous
 // and not Asynchronous. It just starts one time at the beginning of the program.
+const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, "utf-8");
+const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, "utf-8");
+const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, "utf-8");
+
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
 
@@ -47,10 +51,19 @@ const server = http.createServer((req, res) => {
   console.log(req.url);
   const pathName = req.url;
 
+  // Overview page
   if (pathName === "/" || pathName === "/overview") {
-    res.end("This is the OVERVIEW page!");
+    // res.end("This is the OVERVIEW page!");
+    res.writeHead(200, {
+      "Content-type": "text/html",
+    });
+    res.end(tempOverview);
+
+    // Product page
   } else if (pathName === "/product") {
     res.end("This is the PRODUCT page!");
+
+    // API
   } else if (pathName === "/api") {
     // const api = fs.readFile("./dev-data/data.json");
     // __dirname means where the current file is located! where the directory dev-data is located!
@@ -83,6 +96,8 @@ const server = http.createServer((req, res) => {
     res.end(data);
     // console.log(data);
     // console.log(dataObj);
+
+    // Not Found
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
