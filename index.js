@@ -101,7 +101,15 @@ const server = http.createServer((req, res) => {
     const product = dataObj[query.id]; // dataObj[0] or dataObj[1], dataObj[2], dataObj[3], dataObj[4]
     console.log(product);
 
-    res.end("This is the PRODUCT page!");
+    res.writeHead(200, {
+      "Content-type": "text/html",
+    });
+
+    const outputProduct = replaceTemplate(tempProduct, product);
+
+    res.end(outputProduct);
+
+    // res.end("This is the PRODUCT page!");
 
     // API
   } else if (pathname === "/api") {
