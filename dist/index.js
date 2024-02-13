@@ -750,6 +750,6 @@ const server = http.createServer((req, res) => {
 });
 const PORT = 8000;
 /* "127.0.0.1" is our default localhost IP address on our computer*/
-server.listen(PORT, "127.0.0.1", () => {
+server.listen(PORT, () => {
   console.log(`Server is runnning on PORT ${PORT}`);
 });
