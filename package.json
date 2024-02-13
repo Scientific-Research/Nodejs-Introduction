@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "npm run build && node dist/index.js",
+    "deploy": "git pull --no-rebase && npm i && npm run build && pm2 restart mk-organic-farm-app",
+    "build": "babel src -d dist && cp -R src/dev-data src/modules src/templates src/txt dist/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "nodemon": "^3.0.3"
   },
   "dependencies": {
