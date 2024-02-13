@@ -146,6 +146,9 @@ const server = http.createServer((req, res) => {
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Shopping Cart</title>
+      <link rel="icon" href="https://em-content.zobj.net/source/apple/354/ear-of-corn_1f33d.png" /> 
+
       <style>
       * {
       box-sizing: border-box;
