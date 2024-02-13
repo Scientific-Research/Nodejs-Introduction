@@ -1,8 +1,8 @@
-const fs = require("fs");
-const http = require("http");
-const url = require("url");
-const slugify = require("slugify");
-const replaceTemplate = require("./modules/replaceTemplate");
+const fs = require('fs');
+const http = require('http');
+const url = require('url');
+const slugify = require('slugify');
+const replaceTemplate = require('./modules/replaceTemplate');
 
 //////////////////////////////////
 //////FILE
@@ -42,16 +42,20 @@ const replaceTemplate = require("./modules/replaceTemplate");
 // this is the top level code and is started once when we ever start the program:
 // and it doesn't matter if it blocks the execution, because it is the Synchronous
 // and not Asynchronous. It just starts one time at the beginning of the program.
-const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, "utf-8");
-const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, "utf-8");
-const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, "utf-8");
-const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8');
+const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'utf-8');
+const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'utf-8');
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
 const dataObj = JSON.parse(data); // dataObj is not in JSON format anymore, it is now in string format!
 // console.log(data);
 
-console.log(slugify("Fresh Avocados", {
-  lowercase: true
+const slugs = dataObj.map(el => slugify(el.productName, {
+  lower: true
 }));
+console.log(slugs);
+
+// console.log(slugify("Fresh Avocados", { lower: true }));
+
 const server = http.createServer((req, res) => {
   // console.log(req.url);
   // console.log(url.parse(req.url, true));
@@ -67,10 +71,10 @@ const server = http.createServer((req, res) => {
   console.log(pathname);
 
   // Overview page
-  if (pathname === "/" || pathname === "/overview") {
+  if (pathname === '/' || pathname === '/overview') {
     // res.end("This is the OVERVIEW page!");
     res.writeHead(200, {
-      "Content-type": "text/html"
+      'Content-type': 'text/html'
     });
     const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el));
     // console.log(cardsHtml);
@@ -78,22 +82,22 @@ const server = http.createServer((req, res) => {
     // Convert the JavaScript Objects to string to display it on the Browser!
     // const cardHtmlString = cardsHtml.toString();
     // OR => join('') convert the JS Object to String
-    const cardHtmlString = cardsHtml.join("");
+    const cardHtmlString = cardsHtml.join('');
     // we have now the cardHtmlString and replace it with {%Product_Cards%} which is in
     // template-overview.html
-    const outputOverview = tempOverview.replace("{%Product_Cards%}", cardHtmlString);
+    const outputOverview = tempOverview.replace('{%Product_Cards%}', cardHtmlString);
     // console.log(cardHtmlString);
 
     // res.end(tempOverview);
     res.end(outputOverview);
 
     // Product page
-  } else if (pathname === "/product") {
+  } else if (pathname === '/product') {
     console.log(query.id); // query.id gives us a number that we need for every fruit.
     const product = dataObj[query.id]; // dataObj[0] or dataObj[1], dataObj[2], dataObj[3], dataObj[4]
     console.log(product);
     res.writeHead(200, {
-      "Content-type": "text/html"
+      'Content-type': 'text/html'
     });
     const outputProduct = replaceTemplate(tempProduct, product);
     res.end(outputProduct);
@@ -101,7 +105,7 @@ const server = http.createServer((req, res) => {
     // res.end("This is the PRODUCT page!");
 
     // API
-  } else if (pathname === "/api") {
+  } else if (pathname === '/api') {
     // const api = fs.readFile("./dev-data/data.json");
     // __dirname means where the current file is located! where the directory dev-data is located!
     // it is located in the main folder of the program => Nodejs-Introduction
@@ -126,7 +130,7 @@ const server = http.createServer((req, res) => {
     // but we will have the application/json as header for Content-type instead of text/html
     // because we send here actually the json file to the browser and not text/html.
     res.writeHead(200, {
-      "Content-type": "application/json"
+      'Content-type': 'application/json'
     });
     // res.end(`This is the content of an API: ${data}`);
     // res.end(`${data}`);
@@ -135,10 +139,10 @@ const server = http.createServer((req, res) => {
     // console.log(dataObj);
 
     // Not Found
-  } else if (pathname === "/Shopping-Cart") {
+  } else if (pathname === '/Shopping-Cart') {
     res.writeHead(200, {
-      "Content-type": "text/html",
-      "my-own-header": "hello-world"
+      'Content-type': 'text/html',
+      'my-own-header': 'hello-world'
     });
     // res.write(
     //   '<div style="width:100%;height:100%;background-color:lightgreen;display:inline-block;background-color: #79e17b;background: linear-gradient(to bottom, #9be15d, #00e3ae);font-family: "Megrim", sans-serif;"><h1 style="color: #ff0000;text-align: center;margin-top:30rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">Shopping Cart page coming soon...</h1></div>'
@@ -746,10 +750,10 @@ const server = http.createServer((req, res) => {
     res.end('<h1 style="color: #79e17b;">Shopping Cart page coming soon...</h1>');
   } else {
     res.writeHead(404, {
-      "Content-type": "text/html",
-      "my-own-header": "hello-world"
+      'Content-type': 'text/html',
+      'my-own-header': 'hello-world'
     });
-    res.end("<h1>404 - Page not found!</h1>");
+    res.end('<h1>404 - Page not found!</h1>');
   }
 });
 const PORT = 8000;
