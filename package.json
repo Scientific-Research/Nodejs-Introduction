@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "npm run build && node dist/index.js",
-    "deploy": "git pull --no-rebase && npm i && npm run build && pm2 restart mk-organic-farm-app",
+    "deploy": "git pull --no-rebase && npm i && npm run build && pm2 restart mk-organic-farm-app --update-env --time && pm2 save",
     "build": "babel src -d dist && cp -R src/dev-data src/modules src/templates src/txt dist/"
   },
   "keywords": [],
