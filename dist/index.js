@@ -44,7 +44,6 @@ const replaceTemplate = require("./modules/replaceTemplate");
 const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, "utf-8");
 const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, "utf-8");
 const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, "utf-8");
-
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data); // dataObj is not in JSON format anymore, it is now in string format!
 // console.log(data);
@@ -56,7 +55,10 @@ const server = http.createServer((req, res) => {
 
   // using ES6 destructuring gives us the query and pathname that we need them in product section
   // later!
-  const { query, pathname } = url.parse(req.url, true);
+  const {
+    query,
+    pathname
+  } = url.parse(req.url, true);
   console.log(query);
   console.log(pathname);
 
@@ -86,13 +88,10 @@ const server = http.createServer((req, res) => {
     console.log(query.id); // query.id gives us a number that we need for every fruit.
     const product = dataObj[query.id]; // dataObj[0] or dataObj[1], dataObj[2], dataObj[3], dataObj[4]
     console.log(product);
-
     res.writeHead(200, {
       "Content-type": "text/html"
     });
-
     const outputProduct = replaceTemplate(tempProduct, product);
-
     res.end(outputProduct);
 
     // res.end("This is the PRODUCT page!");
@@ -749,7 +748,6 @@ const server = http.createServer((req, res) => {
     res.end("<h1>404 - Page not found!</h1>");
   }
 });
-
 const PORT = 8000;
 /* "127.0.0.1" is our default localhost IP address on our computer*/
 server.listen(PORT, "127.0.0.1", () => {
