@@ -1,6 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
+const slugify = require("slugify");
 const replaceTemplate = require("./modules/replaceTemplate");
 
 //////////////////////////////////
@@ -48,6 +49,9 @@ const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data); // dataObj is not in JSON format anymore, it is now in string format!
 // console.log(data);
 
+console.log(slugify("Fresh Avocados", {
+  lowercase: true
+}));
 const server = http.createServer((req, res) => {
   // console.log(req.url);
   // console.log(url.parse(req.url, true));
